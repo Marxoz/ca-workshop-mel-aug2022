@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaWorkshop.Application", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaWorkshop.Infrastructure", "CaWorkshop.Infrastructure\CaWorkshop.Infrastructure.csproj", "{9E0AD668-7534-488F-B13F-C3AEF0726715}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaWorkshop.Application.UnitTests", "CaWorkshop.Application.UnitTests\CaWorkshop.Application.UnitTests.csproj", "{AD75D9E1-C1AA-4F2D-9A47-F7CD11D5FC1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{9E0AD668-7534-488F-B13F-C3AEF0726715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E0AD668-7534-488F-B13F-C3AEF0726715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E0AD668-7534-488F-B13F-C3AEF0726715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD75D9E1-C1AA-4F2D-9A47-F7CD11D5FC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD75D9E1-C1AA-4F2D-9A47-F7CD11D5FC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD75D9E1-C1AA-4F2D-9A47-F7CD11D5FC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD75D9E1-C1AA-4F2D-9A47-F7CD11D5FC1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

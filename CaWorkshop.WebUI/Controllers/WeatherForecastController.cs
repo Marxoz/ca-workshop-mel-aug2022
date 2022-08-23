@@ -6,7 +6,7 @@ namespace CaWorkshop.WebUI.Controllers;
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController : ApiControllerBase
 {
     private static readonly string[] Summaries = new[]
     {

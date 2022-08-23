@@ -1,27 +1,31 @@
 ﻿using System.Reflection;
-
 using CaWorkshop.Application.Common.Interfaces;
+using CaWorkshop.Domain.Entities;
 using CaWorkshop.Infrastructure.Identity;
-
+using CaWorkshop.Infrastructure.Data.Interceptors;
 using Duende.IdentityServer.EntityFramework.Options;
-
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace CaWorkshop.Infrastructure.Data;
 
-public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
-    IApplicationDbContext
+public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
+    private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
+
+    public ApplicationDbContext(
+        DbContextOptions options,
+        IOptions<OperationalStoreOptions> operationalStoreOptions,
+        AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor)
         : base(options, operationalStoreOptions)
     {
+        _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
 
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+
+    public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -30,7 +34,8 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>,
             .LogTo(Console.WriteLine)
             .EnableDetailedErrors();
 #endif
-
+        optionsBuilder
+            .AddInterceptors(_auditableEntitySaveChangesInterceptor);
         base.OnConfiguring(optionsBuilder);
     }
 
@@ -38,6 +43,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>,
     {
         base.OnModelCreating(builder);
 
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplyConfigurationsFromAssembly(
+            Assembly.GetExecutingAssembly());
     }
 }
